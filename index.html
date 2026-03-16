@@ -1,0 +1,2190 @@
+<!doctype html>
+<html lang="ar" dir="rtl" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مركز الحبيب للألحان والدراسات القبطية</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap');
+
+        * {
+            font-family: 'Cairo', sans-serif;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            color: #f5f5f5;
+        }
+
+        .app-wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100%;
+        }
+
+        /* ===== Header ===== */
+        .header {
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 50%, #d4af37 100%);
+            color: #0f2027;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            border-bottom: 4px solid #0f2027;
+        }
+
+        .header-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: 2px;
+        }
+
+        .header-subtitle {
+            font-size: 1.1rem;
+            color: #333;
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+
+        .header-motto {
+            display: inline-block;
+            background: rgba(15, 32, 39, 0.1);
+            color: #0f2027;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            border: 2px solid #0f2027;
+            margin-top: 1rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        /* ===== Navigation ===== */
+        .nav-container {
+            background: #0f2027;
+            overflow-x: auto;
+            border-bottom: 2px solid #d4af37;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            min-width: max-content;
+        }
+
+        .nav-item {
+            border-right: 1px solid #203a43;
+        }
+
+        .nav-item:last-child {
+            border-right: none;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 1rem 1.5rem;
+            color: #d4af37;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: #d4af37;
+            color: #0f2027;
+        }
+
+        /* ===== Main Content ===== */
+        .main-content {
+            flex: 1;
+            padding: 2rem 1rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== Cards & Sections ===== */
+        .section-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-right: 4px solid #d4af37;
+            border-radius: 8px;
+            padding: 1.75rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.2);
+        }
+
+        .section-title {
+            color: #d4af37;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-icon {
+            width: 6px;
+            height: 20px;
+            background: #d4af37;
+            border-radius: 3px;
+        }
+
+        /* ===== Accordion ===== */
+        .accordion-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            background: rgba(212, 175, 55, 0.1);
+            color: #d4af37;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .accordion-header:hover {
+            background: rgba(212, 175, 55, 0.2);
+        }
+
+        .accordion-header.active {
+            background: #d4af37;
+            color: #0f2027;
+        }
+
+        .accordion-toggle {
+            transition: transform 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .accordion-header.active .accordion-toggle {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 1.5rem;
+        }
+
+        .accordion-header.active + .accordion-content {
+            max-height: 500px;
+            padding: 1.5rem;
+        }
+
+        /* ===== Tables ===== */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        thead {
+            background: rgba(212, 175, 55, 0.2);
+        }
+
+        th {
+            padding: 1rem;
+            color: #d4af37;
+            text-align: right;
+            font-weight: 600;
+            border-bottom: 2px solid #d4af37;
+        }
+
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            color: #e8e8e8;
+        }
+
+        tbody tr:hover {
+            background: rgba(212, 175, 55, 0.08);
+        }
+
+        /* ===== Grid Layouts ===== */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        /* ===== Card Types ===== */
+        .info-card {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05));
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .info-card-title {
+            color: #d4af37;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .info-card-text {
+            color: #b8b8b8;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .stat-box {
+            background: rgba(212, 175, 55, 0.1);
+            padding: 1rem;
+            border-radius: 6px;
+            text-align: center;
+            border-left: 4px solid #d4af37;
+        }
+
+        .stat-number {
+            color: #d4af37;
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
+
+        .stat-label {
+            color: #b8b8b8;
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+        }
+
+        /* ===== Bullet Points ===== */
+        .bullet-list {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+        }
+
+        .bullet-list li {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+            padding-right: 0.5rem;
+            color: #e8e8e8;
+            line-height: 1.6;
+        }
+
+        .bullet-list li:before {
+            content: "✓";
+            color: #d4af37;
+            font-weight: 700;
+            min-width: 20px;
+            flex-shrink: 0;
+        }
+
+        /* ===== Highlights ===== */
+        .highlight {
+            color: #d4af37;
+            font-weight: 600;
+        }
+
+        .highlight-box {
+            background: rgba(212, 175, 55, 0.15);
+            border-left: 4px solid #d4af37;
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+
+        .highlight-box-title {
+            color: #d4af37;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 100%);
+            border-top: 4px solid #d4af37;
+            padding: 2rem 1rem;
+            text-align: center;
+            margin-top: 3rem;
+            color: #b8b8b8;
+        }
+
+        .footer-title {
+            color: #d4af37;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-contact {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* ===== Buttons ===== */
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: #d4af37;
+            color: #0f2027;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            margin: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .btn:hover {
+            background: #f4d03f;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(212, 175, 55, 0.2);
+            color: #d4af37;
+            border: 2px solid #d4af37;
+        }
+
+        .btn-secondary:hover {
+            background: #d4af37;
+            color: #0f2027;
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 1.8rem;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.2rem;
+            }
+
+            .grid-2, .grid-3, .grid-4 {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-link {
+                padding: 0.75rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* ===== Print Styles ===== */
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+
+            .nav-container,
+            .btn {
+                display: none;
+            }
+
+            .section-card {
+                page-break-inside: avoid;
+                border: 1px solid #ccc;
+            }
+        }
+    </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div class="app-wrapper"><!-- Header -->
+   <div class="header">
+    <h1 class="header-title" id="center-name">مركز الحبيب للألحان والدراسات القبطية</h1>
+    <p class="header-subtitle">نظام إداري وتعليمي شامل ومتطور</p>
+    <div class="header-motto" id="center-motto">
+     أفهم ... صلّي ... استمتع
+    </div>
+   </div><!-- Navigation -->
+   <nav class="nav-container">
+    <ul class="nav-menu">
+     <li class="nav-item"><a class="nav-link active" onclick="showSection('home')">🏠 الرئيسية</a></li>
+     <li class="nav-item"><a class="nav-link" onclick="showSection('study-system')">📚 نظام الدراسة</a></li>
+     <li class="nav-item"><a class="nav-link" onclick="showSection('academic-year')">📅 السنة الدراسية</a></li>
+     <li class="nav-item"><a class="nav-link" onclick="showSection('subjects')">🎵 المواد الدراسية</a></li>
+     <li class="nav-item"><a class="nav-link" onclick="showSection('grading')">📊 نظام التقييم</a></li>
+     <li class="nav-item"><a class="nav-link" onclick="showSection('management')">🏛️ الهيكل الإداري</a></li>
+     <li class="nav-item"><a class="nav-link" onclick="showSection('general')">⚙️ التعليمات</a></li>
+     <li class="nav-item"><a class="nav-link" onclick="showSection('midterm-exam')">📋 امتحانات الميدترم</a></li>
+     <li class="nav-item"><a class="nav-link" onclick="showSection('grades')">📊 الدرجات والتقديرات</a></li>
+    </ul>
+   </nav><!-- Main Content -->
+   <main class="main-content"><!-- HOME Section -->
+    <section id="home" class="content-section active">
+     <div class="section-card">
+      <div class="section-title">
+       <div class="section-icon"></div> الرؤية والرسالة والهدف
+      </div>
+      <div class="grid-2">
+       <div class="highlight-box">
+        <div class="highlight-box-title">
+         🎯 الهدف الأساسي
+        </div>
+        <p>تعليم أولادنا وبناتنا من الصغر (من مرحلة الحضانة) كيفية الاستمتاع بصلوات الكنيسة بطقسها ولغتها القبطية وألحانها.</p>
+       </div>
+       <div class="highlight-box">
+        <div class="highlight-box-title">
+         🔮 الرؤية
+        </div>
+        <p>أن يستمتع الشعب كله بليتورجية الكنيسة (قداس – تسبحة – صلوات)، ونصلي بالروح والذهن معاً.</p>
+       </div>
+       <div class="highlight-box">
+        <div class="highlight-box-title">
+         📋 الرسالة
+        </div>
+        <p>تحقيق تكامل المركز مع كل اجتماعات الكنيسة، ليكون منهجاً موحداً للتعليم والممارسة الروحية.</p>
+       </div>
+      </div>
+     </div>
+     <div class="section-card">
+      <div class="section-title">
+       <div class="section-icon"></div> الفئات المستهدفة
+      </div>
+      <div class="grid-2">
+       <div class="info-card">
+        <div class="info-card-title">
+         👶 مرحلة الحضانة
+        </div>
+        <div class="info-card-text">
+         تأسيس الحب والارتباط الروحي بالكنيسة
+        </div>
+       </div>
+       <div class="info-card">
+        <div class="info-card-title">
+         📚 المرحلة الابتدائية
+        </div>
+        <div class="info-card-text">
+         بناء أساس قوي في المعارف والمهارات
+        </div>
+       </div>
+       <div class="info-card">
+        <div class="info-card-title">
+         🎓 الإعدادية والثانوية
+        </div>
+        <div class="info-card-text">
+         تعمق الفهم والممارسة الفعلية
+        </div>
+       </div>
+       <div class="info-card">
+        <div class="info-card-title">
+         👨‍🎓 الشباب والخريجين
+        </div>
+        <div class="info-card-text">
+         قيادة وخدمة كنسية متقدمة
+        </div>
+       </div>
+       <div class="info-card">
+        <div class="info-card-title">
+         👨‍👩‍👧 أولياء الأمور
+        </div>
+        <div class="info-card-text">
+         دعم ومتابعة شاملة لأبنائهم
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="section-card">
+      <div class="section-title">
+       <div class="section-icon"></div> نظرة عامة على النظام
+      </div>
+      <div class="grid-2">
+       <div>
+        <h3 style="color: #d4af37; font-weight: 600; margin-bottom: 1rem;">📚 الجانب الدراسي</h3>
+        <ul class="bullet-list">
+         <li>التعليم الشامل (4 مواد أساسية)</li>
+         <li>إعداد وتطوير المناهج</li>
+         <li>متابعة الأداء اليومي</li>
+         <li>نظام امتحانات شامل</li>
+         <li>أنشطة ترفيهية وثقافية</li>
+        </ul>
+       </div>
+       <div>
+        <h3 style="color: #d4af37; font-weight: 600; margin-bottom: 1rem;">🏛️ الجانب الإداري</h3>
+        <ul class="bullet-list">
+         <li>الافتقاد والاتصالات</li>
+         <li>متابعة اليوم الدراسي</li>
+         <li>المشاركة الكنسية</li>
+         <li>التنبيهات والإعلانات</li>
+         <li>تنظيم الفعاليات</li>
+        </ul>
+       </div>
+      </div>
+     </div>
+    </section><!-- STUDY SYSTEM Section -->
+    <section id="study-system" class="content-section">
+     <div class="section-card">
+      <div class="section-title">
+       <div class="section-icon"></div> نظام الدراسة (14 سنة)
+      </div>
+      <p>المركز مقسم إلى <span class="highlight">14 سنة دراسية</span> موزعة على ثلاث مراحل رئيسية تضمن التدرج المنظم والشامل.</p><!-- Stage 1 Accordion -->
+      <div class="accordion-item">
+       <div class="accordion-header" onclick="toggleAccordion(this)"><span>📌 مرحلة التمهيدي (سنتان)</span> <span class="accordion-toggle">▼</span>
+       </div>
+       <div class="accordion-content">
+        <p style="color: #e8e8e8; margin-bottom: 1rem;">مخصصة للأطفال من 5-6 سنوات</p>
+        <div class="grid-2">
+         <div class="info-card">
+          <div class="info-card-title">
+           تمهيدي أول
+          </div>
+          <div class="info-card-text">
+           سن 5 سنوات - تأسيس أولي
+          </div>
+         </div>
+         <div class="info-card">
+          <div class="info-card-title">
+           تمهيدي ثاني
+          </div>
+          <div class="info-card-text">
+           سن 6 سنوات - تطوير الأساس
+          </div>
+         </div>
+        </div>
+        <h4 style="color: #d4af37; margin-top: 1rem; font-weight: 600;">📋 قواعد الانتقال:</h4>
+        <ul class="bullet-list">
+         <li>من يبدأ في سن 5: يدرس السنتين معاً</li>
+         <li>من يبدأ في سن 6: يدرس السنة الثانية فقط ثم ينتقل لأول ابتدائي</li>
+        </ul>
+       </div>
+      </div><!-- Stage 2 Accordion -->
+      <div class="accordion-item">
+       <div class="accordion-header" onclick="toggleAccordion(this)"><span>📚 المرحلة الابتدائية (6 سنوات)</span> <span class="accordion-toggle">▼</span>
+       </div>
+       <div class="accordion-content">
+        <div class="grid-2">
+         <div class="info-card">
+          <div class="info-card-title">
+           المستوى الأول
+          </div>
+          <div class="info-card-text">
+           3 سنوات دراسية أساسية
+          </div>
+         </div>
+         <div class="info-card">
+          <div class="info-card-title">
+           المستوى الثاني
+          </div>
+          <div class="info-card-text">
+           3 سنوات دراسية متقدمة
+          </div>
+         </div>
+        </div>
+        <h4 style="color: #d4af37; margin-top: 1rem; font-weight: 600;">📋 قواعد الانتقال:</h4>
+        <ul class="bullet-list">
+         <li>إكمال 6 سنوات: ينتقل لمرحلة الكبار – مستوى ثاني</li>
+         <li>إكمال 3 سنوات فقط: ينتقل لمرحلة الكبار – مستوى أول</li>
+        </ul>
+       </div>
+      </div><!-- Stage 3 Accordion -->
+      <div class="accordion-item">
+       <div class="accordion-header" onclick="toggleAccordion(this)"><span>🎓 مرحلة الكبار (6 سنوات)</span> <span class="accordion-toggle">▼</span>
+       </div>
+       <div class="accordion-content">
+        <div class="grid-2">
+         <div class="info-card">
+          <div class="info-card-title">
+           مستوى أول
+          </div>
+          <div class="info-card-text">
+           3 سنوات متقدمة
+          </div>
+         </div>
+         <div class="info-card">
+          <div class="info-card-title">
+           مستوى ثاني
+          </div>
+          <div class="info-card-text">
+           3 سنوات متخصصة
+          </div>
+         </div>
+        </div>
+        <h4 style="color: #d4af37; margin-top: 1rem; font-weight: 600;">📋 تشمل:</h4>
+        <ul class="bullet-list">
+         <li>مرحلة الإعدادية</li>
+         <li>مرحلة الثانوية</li>
+         <li>مرحلة الشباب والخريجين</li>
+        </ul>
+        <p style="color: #d4af37; font-weight: 600; margin-top: 1rem;">ملاحظة: الانتقال حسب عدد السنوات الدراسية وليس حسب الصف الدراسي</p>
+       </div>
+      </div>
+     </div>
+    </section><!-- ACADEMIC YEAR Section -->
+    <section id="academic-year" class="content-section">
+     <div class="section-card">
+      <div class="section-title">
+       <div class="section-icon"></div> السنة الدراسية 2025-2026
+      </div>
+      <div class="highlight-box">
+       <div class="highlight-box-title">
+        🎯 نظام الترمات
+       </div>
+       <p>السنة الدراسية مقسمة إلى <span class="highlight">ترمين</span> منفصلين، كل ترم <span class="highlight">15 أسبوع</span> = <span class="highlight">30 ساعة</span></p>
+      </div>
+      <div class="grid-2">
+       <div class="info-card">
+        <div class="info-card-title">
+         🔔 الترم الأول
+        </div>
+        <p style="font-size: 0.85rem; color: #b8b8b8; margin: 1rem 0;">سبتمبر إلى ديسمبر 2025</p>
+        <ul style="font-size: 0.9rem; list-style: none; padding: 0;">
+         <li style="color: #e8e8e8; margin: 0.5rem 0;"><span class="highlight">البداية:</span> 5 سبتمبر</li>
+         <li style="color: #e8e8e8; margin: 0.5rem 0;"><span class="highlight">النهاية:</span> 5 ديسمبر</li>
+         <li style="color: #e8e8e8; margin: 0.5rem 0;"><span class="highlight">الامتحان:</span> 12 ديسمبر</li>
+        </ul>
+       </div>
+       <div class="info-card">
+        <div class="info-card-title">
+         🔔 الترم الثاني
+        </div>
+        <p style="font-size: 0.85rem; color: #b8b8b8; margin: 1rem 0;">يناير إلى مايو 2026</p>
+        <ul style="font-size: 0.9rem; list-style: none; padding: 0;">
+         <li style="color: #e8e8e8; margin: 0.5rem 0;"><span class="highlight">البداية:</span> 30 يناير</li>
+         <li style="color: #e8e8e8; margin: 0.5rem 0;"><span class="highlight">النهاية:</span> 1 مايو</li>
+         <li style="color: #e8e8e8; margin: 0.5rem 0;"><span class="highlight">الامتحان:</span> 8 مايو</li>
+        </ul>
+       </div>
+      </div>
+      <h3 style="color: #d4af37; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">📊 الخريطة الزمنية التفصيلية</h3>
+      <div class="grid-2">
+       <div>
+        <h4 style="color: #d4af37; margin-bottom: 1rem;">الترم الأول</h4>
+        <div class="table-wrapper">
+         <table>
+          <thead>
+           <tr>
+            <th>الأسبوع</th>
+            <th>التاريخ</th>
+            <th>الملاحظات</th>
+           </tr>
+          </thead>
+          <tbody>
+           <tr>
+            <td>1-6</td>
+            <td>5 سبتمبر - 10 أكتوبر</td>
+            <td>دراسة عادية</td>
+           </tr>
+           <tr>
+            <td>-</td>
+            <td>17 أكتوبر</td>
+            <td>امتحان Mid Term</td>
+           </tr>
+           <tr>
+            <td>7-14</td>
+            <td>24 أكتوبر - 5 ديسمبر</td>
+            <td>دراسة + مراجعة</td>
+           </tr>
+           <tr>
+            <td>15</td>
+            <td>12 ديسمبر</td>
+            <td>الامتحان النهائي</td>
+           </tr>
+           <tr>
+            <td>0</td>
+            <td>تحديد لاحق</td>
+            <td>تخلفات</td>
+           </tr>
+          </tbody>
+         </table>
+        </div>
+       </div>
+       <div>
+        <h4 style="color: #d4af37; margin-bottom: 1rem;">الترم الثاني</h4>
+        <div class="table-wrapper">
+         <table>
+          <thead>
+           <tr>
+            <th>الأسبوع</th>
+            <th>التاريخ</th>
+            <th>الملاحظات</th>
+           </tr>
+          </thead>
+          <tbody>
+           <tr>
+            <td>1-6</td>
+            <td>30 يناير - 6 مارس</td>
+            <td>دراسة عادية</td>
+           </tr>
+           <tr>
+            <td>-</td>
+            <td>13 مارس</td>
+            <td>امتحان Mid Term</td>
+           </tr>
+           <tr>
+            <td>7-14</td>
+            <td>20 مارس - 1 مايو</td>
+            <td>دراسة + مراجعة</td>
+           </tr>
+           <tr>
+            <td>15</td>
+            <td>8 مايو</td>
+            <td>الامتحان النهائي</td>
+           </tr>
+           <tr>
+            <td>0</td>
+            <td>تحديد لاحق</td>
+            <td>تخلفات</td>
+           </tr>
+          </tbody>
+         </table>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section><!-- SUBJECTS Section -->
+    <section id="subjects" class="content-section">
+     <div class="section-card">
+      <div class="section-title">
+       <div class="section-icon"></div> المواد الدراسية الأربعة
+      </div>
+      <p style="color: #e8e8e8; margin-bottom: 1.5rem;">يدرس الطالب <span class="highlight">4 مواد أساسية</span> خلال <span class="highlight">30 ساعة</span> في كل ترم</p>
+      <div class="grid-2">
+       <div class="info-card">
+        <div class="info-card-title">
+         🎵 الألحان والتسبحة
+        </div>
+        <div class="info-card-text">
+         الألحان الكنسية والتسابيح المختلفة
+        </div>
+        <div class="stat-number" style="margin-top: 1rem;">
+         11
+        </div>
+        <div class="stat-label">
+         ساعة
+        </div>
+       </div>
+       <div class="info-card">
+        <div class="info-card-title">
+         🔤 اللغة القبطية
+        </div>
+        <div class="info-card-text">
+         الكتابة والقراءة والنطق
+        </div>
+        <div class="stat-number" style="margin-top: 1rem;">
+         7
+        </div>
+        <div class="stat-label">
+         ساعات
+        </div>
+       </div>
+       <div class="info-card">
+        <div class="info-card-title">
+         ✝️ الطقوس الكنسية
+        </div>
+        <div class="info-card-text">
+         شرح الطقس والعقيدة والممارسة
+        </div>
+        <div class="stat-number" style="margin-top: 1rem;">
+         6
+        </div>
+        <div class="stat-label">
+         ساعات
+        </div>
+       </div>
+       <div class="info-card">
+        <div class="info-card-title">
+         📖 المحفوظات والأجبية
+        </div>
+        <div class="info-card-text">
+         الأجبيات والمحفوظات الكنسية
+        </div>
+        <div class="stat-number" style="margin-top: 1rem;">
+         3
+        </div>
+        <div class="stat-label">
+         ساعات
+        </div>
+       </div>
+      </div>
+      <h3 style="color: #d4af37; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">⏰ تقسيم اليوم الدراسي</h3>
+      <div class="grid-4">
+       <div class="stat-box">
+        <div style="color: #e8e8e8; font-size: 0.9rem;">
+         🎵 ألحان
+        </div>
+        <div class="stat-number">
+         40
+        </div>
+        <div class="stat-label">
+         دقيقة
+        </div>
+       </div>
+       <div class="stat-box">
+        <div style="color: #e8e8e8; font-size: 0.9rem;">
+         ⏸️ بريك
+        </div>
+        <div class="stat-number">
+         15
+        </div>
+        <div class="stat-label">
+         دقيقة
+        </div>
+       </div>
+       <div class="stat-box">
+        <div style="color: #e8e8e8; font-size: 0.9rem;">
+         🔤 قبطي
+        </div>
+        <div class="stat-number">
+         25
+        </div>
+        <div class="stat-label">
+         دقيقة
+        </div>
+       </div>
+       <div class="stat-box">
+        <div style="color: #e8e8e8; font-size: 0.9rem;">
+         ✝️ طقس
+        </div>
+        <div class="stat-number">
+         25
+        </div>
+        <div class="stat-label">
+         دقيقة
+        </div>
+       </div>
+      </div>
+      <h3 style="color: #d4af37; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">📚 موعد الدراسة</h3>
+      <div class="highlight-box">
+       <p><span class="highlight">📅 اليوم:</span> كل يوم جمعة</p>
+       <p style="margin-top: 0.5rem;"><span class="highlight">⏰ الوقت:</span> من الساعة 5:00 م إلى 7:00 م</p>
+      </div>
+     </div>
+    </section><!-- GRADING Section -->
+    <section id="grading" class="content-section">
+     <div class="section-card">
+      <div class="section-title">
+       <div class="section-icon"></div> نظام التقييم والامتحانات
+      </div>
+      <h3 style="color: #d4af37; font-weight: 600; margin-bottom: 1rem;">📊 توزيع الدرجات</h3>
+      <h4 style="color: #d4af37; font-weight: 600; margin-top: 1.5rem; margin-bottom: 1rem;">مواد الطقوس واللغة القبطية (تحريري + شفوي)</h4>
+      <div class="grid-4">
+       <div class="stat-box">
+        <div style="color: #e8e8e8;">
+         📝 تحريري
+        </div>
+        <div class="stat-number">
+         30
+        </div>
+       </div>
+       <div class="stat-box">
+        <div style="color: #e8e8e8;">
+         💼 واجب
+        </div>
+        <div class="stat-number">
+         20
+        </div>
+       </div>
+       <div class="stat-box">
+        <div style="color: #e8e8e8;">
+         🗣️ شفوي
+        </div>
+        <div class="stat-number">
+         20
+        </div>
+       </div>
+       <div class="stat-box">
+        <div style="color: #e8e8e8;">
+         📍 حضور
+        </div>
+        <div class="stat-number">
+         15
+        </div>
+       </div>
+       <div class="stat-box">
+        <div style="color: #e8e8e8;">
+         😊 سلوك
+        </div>
+        <div class="stat-number">
+         15
+        </div>
+       </div>
+      </div>
+      <p style="color: #d4af37; font-weight: 600; text-align: center; margin-top: 1rem;">المجموع: <span style="font-size: 1.3rem;">100 درجة</span></p>
+      <h4 style="color: #d4af37; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">مواد الألحان والمحفوظات (شفوي فقط)</h4>
+      <div class="grid-3">
+       <div class="stat-box">
+        <div style="color: #e8e8e8;">
+         ✅ السلامة
+        </div>
+        <div class="stat-number">
+         30
+        </div>
+       </div>
+       <div class="stat-box">
+        <div style="color: #e8e8e8;">
+         🔤 النطق
+        </div>
+        <div class="stat-number">
+         15
+        </div>
+       </div>
+       <div class="stat-box">
+        <div style="color: #e8e8e8;">
+         💡 معلومة
+        </div>
+        <div class="stat-number">
+         15
+        </div>
+       </div>
+       <div class="stat-box">
+        <div style="color: #e8e8e8;">
+         📍 حضور
+        </div>
+        <div class="stat-number">
+         15
+        </div>
+       </div>
+       <div class="stat-box">
+        <div style="color: #e8e8e8;">
+         😊 سلوك
+        </div>
+        <div class="stat-number">
+         15
+        </div>
+       </div>
+      </div>
+      <p style="color: #d4af37; font-weight: 600; text-align: center; margin-top: 1rem;">المجموع: <span style="font-size: 1.3rem;">100 درجة</span></p>
+      <h3 style="color: #d4af37; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">✅ شروط النجاح</h3>
+      <ul class="bullet-list">
+       <li>نجاح بنسبة <span class="highlight">60%</span> على الأقل</li>
+       <li>عدم الرسوب في <span class="highlight">أكثر من مادتين</span></li>
+       <li>نسبة حضور لا تقل عن <span class="highlight">80%</span></li>
+       <li>إكمال <span class="highlight">جميع الواجبات</span></li>
+      </ul>
+      <h3 style="color: #d4af37; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">⏰ جدول الامتحانات</h3>
+      <div class="highlight-box">
+       <p>⏱️ <span class="highlight">موعد الامتحان:</span> من الساعة 5:00 م إلى 9:00 م</p>
+       <p style="margin-top: 0.5rem;">🚫 <span class="highlight">التأخير:</span> لا يسمح بالتأخير في الامتحان التحريري</p>
+       <p style="margin-top: 0.5rem;">📢 <span class="highlight">إعلان النتيجة:</span> بعد أسبوع واحد من الامتحان عبر واتس</p>
+      </div>
+      <h3 style="color: #d4af37; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">🔄 حالة الرسوب</h3>
+      <div class="highlight-box">
+       <p>في حالة الرسوب، يعيد الطالب <span class="highlight">الترم فقط</span> خلال السنة التالية (وليس السنة كاملة) لأن الدراسة في كل ترم منفصلة.</p>
+       <p style="margin-top: 1rem;">لا يستلم الطالب الشهادة في السنة الحالية، ويستلمها في السنة التالية بعد إعادة الترم بنجاح.</p>
+      </div>
+     </div>
+    </section><!-- MANAGEMENT Section -->
+    <section id="management" class="content-section">
+     <div class="section-card">
+      <div class="section-title">
+       <div class="section-icon"></div> الهيكل الإداري الشامل
+      </div>
+      <h3 style="color: #d4af37; font-weight: 600; margin-bottom: 1.5rem;">الجانب الدراسي 📚 والجانب الإداري 🏛️</h3>
+      <div class="grid-2">
+       <div>
+        <h4 style="color: #d4af37; font-weight: 600; margin-bottom: 1rem;">الجانب الدراسي</h4>
+        <ul class="bullet-list">
+         <li>تدريس المواد الأربع</li>
+         <li>تحضير وتطوير المناهج</li>
+         <li>متابعة أداء الدارسين</li>
+         <li>إعداد وتقييم الامتحانات</li>
+         <li>تصحيح الواجبات والأسئلة</li>
+         <li>تسجيل درجات الحضور</li>
+         <li>المراجعات الدورية</li>
+         <li>الأنشطة والحفلات</li>
+        </ul>
+       </div>
+       <div>
+        <h4 style="color: #d4af37; font-weight: 600; margin-bottom: 1rem;">الجانب الإداري</h4>
+        <ul class="bullet-list">
+         <li>الافتقاد والاتصالات</li>
+         <li>متابعة اليوم الدراسي</li>
+         <li>تسجيل الحضور</li>
+         <li>المتابعة المستمرة</li>
+         <li>المشاركة الكنسية</li>
+         <li>التنبيهات والإعلانات</li>
+         <li>تنسيق المواعيد</li>
+         <li>تنظيم الفعاليات</li>
+        </ul>
+       </div>
+      </div>
+      <h3 style="color: #d4af37; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">🤝 فريق العمل</h3>
+      <div class="grid-4">
+       <div class="info-card" style="border: 2px solid #d4af37;">
+        <div class="info-card-title">
+         🎓 المنسق الدراسي
+        </div>
+        <div class="info-card-text" style="font-size: 0.85rem;">
+         تنسيق المناهج والدروس
+        </div>
+       </div>
+       <div class="info-card" style="border: 2px solid #d4af37;">
+        <div class="info-card-title">
+         🎵 معلم الألحان
+        </div>
+        <div class="info-card-text" style="font-size: 0.85rem;">
+         تدريس الألحان والتسبحة
+        </div>
+       </div>
+       <div class="info-card" style="border: 2px solid #d4af37;">
+        <div class="info-card-title">
+         🔤 معلم القبطي
+        </div>
+        <div class="info-card-text" style="font-size: 0.85rem;">
+         تدريس اللغة القبطية
+        </div>
+       </div>
+       <div class="info-card" style="border: 2px solid #d4af37;">
+        <div class="info-card-title">
+         ✝️ معلم الطقس
+        </div>
+        <div class="info-card-text" style="font-size: 0.85rem;">
+         شرح الطقس والعقيدة
+        </div>
+       </div>
+       <div class="info-card" style="border: 2px solid #d4af37;">
+        <div class="info-card-title">
+         📋 منسق النظام
+        </div>
+        <div class="info-card-text" style="font-size: 0.85rem;">
+         تنظيم الجداول والفصول
+        </div>
+       </div>
+       <div class="info-card" style="border: 2px solid #d4af37;">
+        <div class="info-card-title">
+         📞 فريق الاتصالات
+        </div>
+        <div class="info-card-text" style="font-size: 0.85rem;">
+         التواصل والمتابعة
+        </div>
+       </div>
+       <div class="info-card" style="border: 2px solid #d4af37;">
+        <div class="info-card-title">
+         ✅ مراقب الجودة
+        </div>
+        <div class="info-card-text" style="font-size: 0.85rem;">
+         متابعة التقييم والأداء
+        </div>
+       </div>
+       <div class="info-card" style="border: 2px solid #d4af37;">
+        <div class="info-card-title">
+         🤝 فريق الدعم
+        </div>
+        <div class="info-card-text" style="font-size: 0.85rem;">
+         مساعدة الدارسين
+        </div>
+       </div>
+      </div>
+      <h3 style="color: #d4af37; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">🎯 المشاركة الكنسية</h3>
+      <ul class="bullet-list">
+       <li>قداس شهري تعليمي (قراءات + خدمة مذبح + أغابي)</li>
+       <li>المشاركة في نهضة العذراء</li>
+       <li>الحضور والتنظيم في الرسامات الكنسية</li>
+       <li>المشاركة في أعياد ومناسبات الكنيسة</li>
+       <li>الإشراف على الحفلات والفعاليات</li>
+      </ul>
+     </div>
+    </section><!-- GENERAL Section -->
+    <section id="general" class="content-section">
+     <div class="section-card">
+      <div class="section-title">
+       <div class="section-icon"></div> التعليمات العامة والرسوم
+      </div>
+      <h3 style="color: #d4af37; font-weight: 600; margin-bottom: 1rem;">💰 الرسوم والدعم</h3>
+      <ul class="bullet-list">
+       <li>رسم الاشتراك: <span class="highlight">50 جنيه</span> لكل ترم</li>
+       <li>تخفيض خاص للأخوات: <span class="highlight">10-20%</span> من الرسوم</li>
+       <li>دعم الحالات المحتاجة: <span class="highlight">متاح حسب الحاجة</span></li>
+      </ul>
+      <h3 style="color: #d4af37; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">📝 الحضور والغياب</h3>
+      <ul class="bullet-list">
+       <li>الحد الأقصى للغياب: <span class="highlight">3 مرات فقط</span> غير متتالية</li>
+       <li>يجب تقديم <span class="highlight">عذر مقبول</span> عن الغياب</li>
+       <li>الحضور المبكر <span class="highlight">إلزامي</span> قبل رفع الغياب</li>
+       <li>يوجد <span class="highlight">درجات للحضور والالتزام</span> والانتظام</li>
+      </ul>
+      <h3 style="color: #d4af37; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">💼 الواجبات</h3>
+      <ul class="bullet-list">
+       <li>عدد الواجبات: <span class="highlight">12 واجب</span> في كل ترم</li>
+       <li>موعد التسليم: <span class="highlight">قبل الدخول مباشرة فقط</span></li>
+       <li>الواجبات المتأخرة: <span class="highlight">لا تقبل</span></li>
+       <li>تسليم الواجبات يدخل في الدرجات النهائية</li>
+      </ul>
+      <h3 style="color: #d4af37; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">📋 متطلبات الالتحاق</h3>
+      <ul class="bullet-list">
+       <li>سحب استمارة الاشتراك من سكرتارية الكنيسة وملؤها</li>
+       <li>صورتان شخصيتان حديثتان مع اسم الدارس خلفهما</li>
+       <li>إرسال الصورة عبر واتس لخادم الفصل</li>
+       <li>استلام <span class="highlight">كارنية الدارس</span> برقم Code خاص</li>
+       <li>إحضار <span class="highlight">كشكول وقلم</span> خاص بالمركز</li>
+      </ul>
+      <h3 style="color: #d4af37; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">📚 المواد المسلمة</h3>
+      <ul class="bullet-list">
+       <li>كتاب المنهج الكامل للترم (عند توفره)</li>
+       <li>CD يحتوي على ألحان المستوى</li>
+       <li>لقطات القداس التعليمي لمادة الطقوس</li>
+      </ul>
+      <h3 style="color: #d4af37; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">🎉 الأنشطة السنوية</h3>
+      <div class="grid-2">
+       <div class="highlight-box">
+        <p>📌 <span class="highlight">2 يوم روحي</span> في السنة</p>
+        <p style="margin-top: 0.5rem;">🚌 <span class="highlight">2 رحلة ترفيهية</span> منتظمة</p>
+        <p style="margin-top: 0.5rem;">🎊 <span class="highlight">1 مؤتمر سنوي</span> للمركز</p>
+       </div>
+       <div class="highlight-box">
+        <p>🎪 حفلات تعليمية وترفيهية</p>
+        <p style="margin-top: 0.5rem;">🎭 كرنفال سنوي لإبراز المواهب</p>
+        <p style="margin-top: 0.5rem;">🏆 تكريم الأوائل وحفل التخرج</p>
+       </div>
+      </div>
+      <h3 style="color: #d4af37; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">⚙️ أدوات التواصل</h3>
+      <ul class="bullet-list">
+       <li>جروب واتس اب <span class="highlight">لكل فصل</span> للتواصل والإعلانات</li>
+       <li>إرسال التنبيهات <span class="highlight">أسبوعياً</span> للدارسين</li>
+       <li>نشر أوراق الشرح <span class="highlight">يومياً</span> بعد الحصة</li>
+       <li>إعلان النتائج عبر <span class="highlight">رابط الواتس</span></li>
+      </ul>
+      <h3 style="color: #d4af37; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">📋 قواعد عامة</h3>
+      <ul class="bullet-list">
+       <li>لا يسمح بتخطي <span class="highlight">أي مستوى</span></li>
+       <li>الجميع يبدأ من المستوى الأول</li>
+       <li>التقدم حسب النجاح والاستيعاب</li>
+       <li>حفل تخرج وتكريم في نهاية كل سنة</li>
+      </ul>
+     </div>
+     <div class="section-card" style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(212, 175, 55, 0.08));">
+      <div class="section-title">
+       <div class="section-icon"></div> الفصول وأكوادها
+      </div>
+      <h4 style="color: #d4af37; margin-bottom: 1rem;">المستوى الأول</h4>
+      <div class="table-wrapper">
+       <table>
+        <thead>
+         <tr>
+          <th>الرقم</th>
+          <th>المرحلة</th>
+          <th>اسم الفصل</th>
+          <th>الكود</th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>1</td>
+          <td>حضانة</td>
+          <td>الملاك غبريال المبشر</td>
+          <td style="color: #d4af37; font-weight: 600;">A</td>
+         </tr>
+         <tr>
+          <td>2</td>
+          <td>أولى - ثانية</td>
+          <td>السيدة العذراء مريم</td>
+          <td style="color: #d4af37; font-weight: 600;">B</td>
+         </tr>
+         <tr>
+          <td>3</td>
+          <td>ثالثة - رابعة</td>
+          <td>الشهيد مارمينا العجايبي</td>
+          <td style="color: #d4af37; font-weight: 600;">C</td>
+         </tr>
+         <tr>
+          <td>4</td>
+          <td>خامسة - سادسة</td>
+          <td>البابا كيرلس السادس</td>
+          <td style="color: #d4af37; font-weight: 600;">D</td>
+         </tr>
+         <tr>
+          <td>5</td>
+          <td>إعدادي - ثانوي</td>
+          <td>الشهيد أبو سيفين</td>
+          <td style="color: #d4af37; font-weight: 600;">E</td>
+         </tr>
+         <tr>
+          <td>6</td>
+          <td>شباب - خريجين</td>
+          <td>الشهيد جليانكوس الأسقف</td>
+          <td style="color: #d4af37; font-weight: 600;">F</td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+      <p style="color: #d4af37; margin-top: 1.5rem; font-weight: 600;">🕔 وقت الدراسة: كل جمعة من 5:00 م إلى 7:00 م</p>
+     </div>
+    </section><!-- MIDTERM EXAM Section -->
+    <section id="midterm-exam" class="content-section">
+     <div class="section-card">
+      <div class="section-title">
+       <div class="section-icon"></div> تنظيم امتحانات الميدترم – مارس 2026
+      </div>
+      <p style="color: #e8e8e8; margin-bottom: 1.5rem;">نظام شامل وتفصيلي لتنظيم وإدارة امتحانات الميدترم مع توزيع واضح للمهام على الفريق</p><!-- Stage 1: Before Exam -->
+      <div class="accordion-item">
+       <div class="accordion-header" onclick="toggleAccordion(this)"><span>🔔 أولاً: قبل بدء الامتحان</span> <span class="accordion-toggle">▼</span>
+       </div>
+       <div class="accordion-content">
+        <h4 style="color: #d4af37; margin: 1rem 0 0.75rem 0; font-weight: 600;">1️⃣ تسليم أوراق الامتحانات</h4>
+        <p style="color: #e8e8e8; margin-bottom: 1rem;">يتم تسليم ورق الامتحانات إلى مسؤول المادة في لجنة التحريري المجمعة</p>
+        <div class="table-wrapper">
+         <table>
+          <thead>
+           <tr>
+            <th>المرحلة</th>
+            <th>مسؤول اللجنة</th>
+            <th>المسؤوليات</th>
+           </tr>
+          </thead>
+          <tbody>
+           <tr>
+            <td>ثالثة - رابعة</td>
+            <td>يؤنا ملاك</td>
+            <td rowspan="4" style="font-size: 0.85rem;">• تسجيل الغياب<br>
+              • توزيع الأوراق<br>
+              • التحقق من الأحقية<br>
+              • استلام الأوراق<br>
+              • تسليم للكنترول</td>
+           </tr>
+           <tr>
+            <td>خامسة - سادسة</td>
+            <td>كريستين كمال</td>
+           </tr>
+           <tr>
+            <td>إعدادي - ثانوي</td>
+            <td>ماريان عهدي</td>
+           </tr>
+           <tr>
+            <td>شباب وخريجين</td>
+            <td>اندرو هاني</td>
+           </tr>
+          </tbody>
+         </table>
+        </div>
+        <h4 style="color: #d4af37; margin: 2rem 0 0.75rem 0; font-weight: 600;">2️⃣ تسليم استمارة السلوك</h4>
+        <p style="color: #e8e8e8; margin-bottom: 1rem;">تسليم أوراق السلوك لمواد (الطقس – المحفوظات – القبطي) إلى مسؤولي الفصول</p>
+        <div class="table-wrapper">
+         <table>
+          <thead>
+           <tr>
+            <th>المرحلة</th>
+            <th>الطقوس</th>
+            <th>المحفوظات</th>
+            <th>القبطي</th>
+           </tr>
+          </thead>
+          <tbody>
+           <tr>
+            <td>ثالثة - رابعة</td>
+            <td>جومانا عماد</td>
+            <td>يؤنا ملاك</td>
+            <td>مينا ميخائيل</td>
+           </tr>
+           <tr>
+            <td>خامسة - سادسة</td>
+            <td>اندرو هاني</td>
+            <td>توماس ماجد</td>
+            <td>بسنت ناصر</td>
+           </tr>
+           <tr>
+            <td>إعدادي - ثانوي</td>
+            <td>كريستين كمال</td>
+            <td>ساندي ملاك</td>
+            <td>نانسي يوسف</td>
+           </tr>
+           <tr>
+            <td>شباب وخريجين</td>
+            <td>ماريان عهدي</td>
+            <td>ماريان عهدي</td>
+            <td>مارينا ماهر</td>
+           </tr>
+          </tbody>
+         </table>
+        </div>
+        <p style="color: #d4af37; font-weight: 600; margin-top: 1rem;">📌 تسليم الاستمارة للكنترول الساعة 4:30</p>
+        <h4 style="color: #d4af37; margin: 2rem 0 0.75rem 0; font-weight: 600;">3️⃣ تسليم كشف الغياب</h4>
+        <ul class="bullet-list">
+         <li>تسليم كشف الغياب لمسؤول اللجنة</li>
+         <li>تسجيل غياب الدارسين داخل اللجنة</li>
+         <li>تسليم الكشف للكنترول <span class="highlight">الساعة 4:30</span></li>
+        </ul>
+        <h4 style="color: #d4af37; margin: 2rem 0 0.75rem 0; font-weight: 600;">4️⃣ تسليم استمارات التقييم الشفوي</h4>
+        <p style="color: #e8e8e8; margin-bottom: 1rem;"><strong>للمراحل الأولى:</strong></p>
+        <div class="table-wrapper">
+         <table>
+          <thead>
+           <tr>
+            <th>المادة</th>
+            <th>تمهيدي</th>
+            <th>أولي وثانية</th>
+           </tr>
+          </thead>
+          <tbody>
+           <tr>
+            <td>الطقوس الكنسية</td>
+            <td>سعيدة سمير</td>
+            <td>مريم فؤاد</td>
+           </tr>
+           <tr>
+            <td>المحفوظات والأجبية</td>
+            <td>يوستينا سعد</td>
+            <td>يوسف نادر</td>
+           </tr>
+           <tr>
+            <td>اللغة القبطية</td>
+            <td>بيشوي جوزيف</td>
+            <td>رامز منير</td>
+           </tr>
+          </tbody>
+         </table>
+        </div>
+        <p style="color: #e8e8e8; margin: 1.5rem 0 1rem 0;"><strong>للمراحل الأخرى - شفوي المحفوظات:</strong></p>
+        <div class="table-wrapper">
+         <table>
+          <thead>
+           <tr>
+            <th>المرحلة</th>
+            <th>المسؤول</th>
+           </tr>
+          </thead>
+          <tbody>
+           <tr>
+            <td>ثالثة - رابعة</td>
+            <td>توماس ماجد</td>
+           </tr>
+           <tr>
+            <td>خامسة - سادسة</td>
+            <td>جومانا عماد</td>
+           </tr>
+           <tr>
+            <td>إعدادي - ثانوي</td>
+            <td>يؤنا ملاك</td>
+           </tr>
+           <tr>
+            <td>شباب وخريجين</td>
+            <td>ساندي ملاك</td>
+           </tr>
+          </tbody>
+         </table>
+        </div>
+       </div>
+      </div><!-- Stage 2: During and After Exam -->
+      <div class="accordion-item">
+       <div class="accordion-header" onclick="toggleAccordion(this)"><span>🔔 ثانياً: أثناء وبعد انتهاء لجنة التحريري</span> <span class="accordion-toggle">▼</span>
+       </div>
+       <div class="accordion-content">
+        <h4 style="color: #d4af37; margin: 1rem 0 0.75rem 0; font-weight: 600;">1️⃣ استلام كشوف الغياب</h4>
+        <div class="highlight-box">
+         <p>يقوم الكنترول باستلام كشف غياب الفصول من مسؤولي اللجان</p>
+         <p style="margin-top: 0.5rem;">⏰ <span class="highlight">موعد الاستلام: الساعة 4:30</span></p>
+        </div>
+        <h4 style="color: #d4af37; margin: 2rem 0 0.75rem 0; font-weight: 600;">2️⃣ استلام أوراق الامتحانات</h4>
+        <div class="highlight-box">
+         <p>بعد انتهاء لجنة التحريري المجمعة:</p>
+         <p style="margin-top: 0.5rem;">يقوم كل مسؤول لجنة بتسليم أوراق الامتحان للكنترول بالعدد</p>
+         <p style="margin-top: 0.5rem;">⏰ <span class="highlight">موعد الاستلام: الساعة 5:00</span></p>
+        </div>
+        <h4 style="color: #d4af37; margin: 2rem 0 0.75rem 0; font-weight: 600;">3️⃣ استلام استمارات الشفوي</h4>
+        <div class="highlight-box">
+         <p>استلام استمارة تقييم الشفوي لمادة المحفوظات</p>
+         <p style="margin-top: 0.5rem;">⏰ <span class="highlight">موعد الاستلام: الساعة 5:30</span></p>
+        </div>
+       </div>
+      </div><!-- Stage 3: Prepare Correction -->
+      <div class="accordion-item">
+       <div class="accordion-header" onclick="toggleAccordion(this)"><span>🔔 ثالثاً: تجهيز التصحيح</span> <span class="accordion-toggle">▼</span>
+       </div>
+       <div class="accordion-content">
+        <p style="color: #e8e8e8; margin-bottom: 1.5rem;">يقوم الكنترول بمراجعة وتجهيز فايل لكل خادم تصحيح</p>
+        <h4 style="color: #d4af37; margin: 1rem 0 0.75rem 0; font-weight: 600;">محتويات الفايل:</h4>
+        <ul class="bullet-list">
+         <li>أوراق الامتحان الخاصة بالمادة</li>
+         <li>نموذج الإجابة الخاص بالمادة</li>
+         <li>استمارة رصد درجات التحريري</li>
+        </ul>
+        <h4 style="color: #d4af37; margin: 2rem 0 0.75rem 0; font-weight: 600;">توزيع التصحيح والرصد:</h4>
+        <div class="table-wrapper">
+         <table>
+          <thead>
+           <tr>
+            <th>المرحلة</th>
+            <th>الطقوس</th>
+            <th>المحفوظات</th>
+            <th>القبطي</th>
+           </tr>
+          </thead>
+          <tbody>
+           <tr>
+            <td>ثالثة - رابعة</td>
+            <td>مريم فؤاد</td>
+            <td>رامز منير</td>
+            <td>-</td>
+           </tr>
+           <tr>
+            <td>خامسة - سادسة</td>
+            <td>ماريان عهدي</td>
+            <td>نانسي يوسف</td>
+            <td>-</td>
+           </tr>
+           <tr>
+            <td>إعدادي - ثانوي</td>
+            <td>اندرو هاني</td>
+            <td>مارينا ماهر</td>
+            <td>-</td>
+           </tr>
+           <tr>
+            <td>شباب وخريجين</td>
+            <td>كريستين كمال</td>
+            <td>بسنت ناصر</td>
+            <td>-</td>
+           </tr>
+          </tbody>
+         </table>
+        </div>
+        <p style="color: #d4af37; font-weight: 600; margin-top: 1rem;">⏰ موعد التسليم: الساعة 5:30</p>
+       </div>
+      </div><!-- Stage 4: Receive Correction -->
+      <div class="accordion-item">
+       <div class="accordion-header" onclick="toggleAccordion(this)"><span>🔔 رابعاً: استلام أوراق التصحيح</span> <span class="accordion-toggle">▼</span>
+       </div>
+       <div class="accordion-content">
+        <p style="color: #e8e8e8; margin-bottom: 1.5rem;">بعد انتهاء التصحيح (حوالي 30 دقيقة):</p>
+        <h4 style="color: #d4af37; margin: 1rem 0 0.75rem 0; font-weight: 600;">محتويات الفايل المستلم:</h4>
+        <ul class="bullet-list">
+         <li>أوراق الامتحان بعد التصحيح</li>
+         <li>نموذج الإجابة</li>
+         <li>استمارة رصد درجات التحريري</li>
+        </ul>
+        <div class="highlight-box">
+         <p>⏰ <span class="highlight">موعد الاستلام: الساعة 6:00</span></p>
+        </div>
+       </div>
+      </div><!-- Stage 5: Final Review -->
+      <div class="accordion-item">
+       <div class="accordion-header" onclick="toggleAccordion(this)"><span>🔔 خامساً: المراجعة والرصد النهائي</span> <span class="accordion-toggle">▼</span>
+       </div>
+       <div class="accordion-content">
+        <h4 style="color: #d4af37; margin: 1rem 0 0.75rem 0; font-weight: 600;">خطوات الرصد:</h4>
+        <ul class="bullet-list">
+         <li>مراجعة درجات أوراق الامتحان</li>
+         <li>رصد الدرجات في شيت رصد الكنترول</li>
+         <li>تجميع الدرجات مع:</li>
+        </ul>
+        <div class="grid-4" style="margin: 1rem 0;">
+         <div class="stat-box">
+          <div style="color: #e8e8e8;">
+           📝
+          </div>
+          <div class="stat-number">
+           التحريري
+          </div>
+         </div>
+         <div class="stat-box">
+          <div style="color: #e8e8e8;">
+           💼
+          </div>
+          <div class="stat-number">
+           الواجب
+          </div>
+         </div>
+         <div class="stat-box">
+          <div style="color: #e8e8e8;">
+           📍
+          </div>
+          <div class="stat-number">
+           الغياب
+          </div>
+         </div>
+         <div class="stat-box">
+          <div style="color: #e8e8e8;">
+           😊
+          </div>
+          <div class="stat-number">
+           السلوك
+          </div>
+         </div>
+        </div>
+        <h4 style="color: #d4af37; margin: 2rem 0 0.75rem 0; font-weight: 600;">النتيجة النهائية لكل دارس</h4>
+        <p style="color: #e8e8e8;">يتم دمج كل الدرجات لحساب النتيجة النهائية الشاملة</p>
+       </div>
+      </div><!-- Vocals Exam -->
+      <div class="accordion-item">
+       <div class="accordion-header" onclick="toggleAccordion(this)"><span>🎵 امتحان الألحان</span> <span class="accordion-toggle">▼</span>
+       </div>
+       <div class="accordion-content">
+        <h4 style="color: #d4af37; margin: 1rem 0 0.75rem 0; font-weight: 600;">خطوات الامتحان:</h4>
+        <ul class="bullet-list">
+         <li>تسليم استمارة تقييم الألحان إلى لجان الألحان</li>
+         <li>تقييم الدارسين حسب الإرشادات</li>
+         <li>استخراج نتيجة إجمالية لكل دارس</li>
+         <li>تسليم الاستمارة كاملة للكنترول</li>
+        </ul>
+        <h4 style="color: #d4af37; margin: 2rem 0 0.75rem 0; font-weight: 600;">فريق لجان الألحان:</h4>
+        <div class="grid-2">
+         <div class="info-card">
+          <div class="info-card-title">
+           ماريا شوكت
+          </div>
+          <div class="info-card-text">
+           مسؤولة اللجنة
+          </div>
+         </div>
+         <div class="info-card">
+          <div class="info-card-title">
+           ابانوب ايمن
+          </div>
+          <div class="info-card-text">
+           مقيم
+          </div>
+         </div>
+         <div class="info-card">
+          <div class="info-card-title">
+           مينا عماد
+          </div>
+          <div class="info-card-text">
+           مقيم
+          </div>
+         </div>
+         <div class="info-card">
+          <div class="info-card-title">
+           مارينا ايهاب
+          </div>
+          <div class="info-card-text">
+           مقيم
+          </div>
+         </div>
+         <div class="info-card">
+          <div class="info-card-title">
+           بيشوي ملاك
+          </div>
+          <div class="info-card-text">
+           مقيم
+          </div>
+         </div>
+         <div class="info-card">
+          <div class="info-card-title">
+           ابرام هاني
+          </div>
+          <div class="info-card-text">
+           مقيم
+          </div>
+         </div>
+        </div>
+        <h4 style="color: #d4af37; margin: 2rem 0 0.75rem 0; font-weight: 600;">📌 حساب الدرجات</h4>
+        <div class="highlight-box">
+         <p><strong>إذا كان عدد الألحان أقل أو أكثر من 5:</strong></p>
+         <p style="margin-top: 0.75rem;">1️⃣ يتم جمع الدرجات الفعلية للألحان المامتحنة</p>
+         <p style="margin-top: 0.5rem;">2️⃣ حساب الدرجة النهائية بالمعادلة:</p>
+         <p style="margin-top: 0.75rem; text-align: center; font-weight: 600; color: #d4af37; font-size: 1.1rem;">(مجموع درجات ÷ الدرجة الكلية الفعلية) × 30</p>
+         <p style="margin-top: 0.75rem;">📌 الناتج النهائي يجب أن يكون رقماً صحيحاً (يتم التقريب)</p>
+        </div>
+        <h4 style="color: #d4af37; margin: 2rem 0 0.75rem 0; font-weight: 600;">رصد الدرجات:</h4>
+        <p style="color: #e8e8e8;">يقوم الكنترول برصد درجات الألحان مع:</p>
+        <ul class="bullet-list">
+         <li>درجات الواجب</li>
+         <li>درجات الغياب</li>
+        </ul>
+       </div>
+      </div><!-- Control Team Organization -->
+      <div class="accordion-item">
+       <div class="accordion-header" onclick="toggleAccordion(this)"><span>👥 تقسيم فريق الكنترول</span> <span class="accordion-toggle">▼</span>
+       </div>
+       <div class="accordion-content">
+        <p style="color: #e8e8e8; margin-bottom: 1.5rem;">تقسيم العمل بكفاءة بدلاً من أن يعمل الجميع في كل شيء</p>
+        <div class="grid-2">
+         <div class="highlight-box">
+          <div class="highlight-box-title">
+           1️⃣ مسؤول الاستلام
+          </div>
+          <ul style="list-style: none; padding: 0; margin-top: 1rem;">
+           <li style="color: #e8e8e8; margin: 0.5rem 0;">✓ استلام أوراق الامتحانات</li>
+           <li style="color: #e8e8e8; margin: 0.5rem 0;">✓ استلام كشوف الغياب</li>
+           <li style="color: #e8e8e8; margin: 0.5rem 0;">✓ مراجعة عدد الأوراق</li>
+          </ul>
+         </div>
+         <div class="highlight-box">
+          <div class="highlight-box-title">
+           2️⃣ مسؤول التجهيز
+          </div>
+          <ul style="list-style: none; padding: 0; margin-top: 1rem;">
+           <li style="color: #e8e8e8; margin: 0.5rem 0;">✓ تجهيز فايلات المواد</li>
+           <li style="color: #e8e8e8; margin: 0.5rem 0;">✓ الأوراق + النموذج</li>
+           <li style="color: #e8e8e8; margin: 0.5rem 0;">✓ استمارة الرصد</li>
+          </ul>
+         </div>
+         <div class="highlight-box">
+          <div class="highlight-box-title">
+           3️⃣ مسؤول المراجعة
+          </div>
+          <ul style="list-style: none; padding: 0; margin-top: 1rem;">
+           <li style="color: #e8e8e8; margin: 0.5rem 0;">✓ مراجعة التصحيح</li>
+           <li style="color: #e8e8e8; margin: 0.5rem 0;">✓ التأكد من جمع الدرجات</li>
+           <li style="color: #e8e8e8; margin: 0.5rem 0;">✓ تدقيق النتائج</li>
+          </ul>
+         </div>
+         <div class="highlight-box">
+          <div class="highlight-box-title">
+           4️⃣ مسؤول الرصد
+          </div>
+          <ul style="list-style: none; padding: 0; margin-top: 1rem;">
+           <li style="color: #e8e8e8; margin: 0.5rem 0;">✓ إدخال الدرجات</li>
+           <li style="color: #e8e8e8; margin: 0.5rem 0;">✓ تجميع: تحريري + واجب</li>
+           <li style="color: #e8e8e8; margin: 0.5rem 0;">✓ سلوك + غياب</li>
+          </ul>
+         </div>
+        </div>
+       </div>
+      </div><!-- Supervision -->
+      <div class="accordion-item">
+       <div class="accordion-header" onclick="toggleAccordion(this)"><span>👁️ مراقبة لجنة الامتحان التحريري</span> <span class="accordion-toggle">▼</span>
+       </div>
+       <div class="accordion-content">
+        <p style="color: #e8e8e8; margin-bottom: 1.5rem;">فريق المراقبة لضمان جودة الامتحان:</p>
+        <div class="table-wrapper">
+         <table>
+          <thead>
+           <tr>
+            <th>دور المراقب</th>
+            <th>الأسماء</th>
+           </tr>
+          </thead>
+          <tbody>
+           <tr>
+            <td>مسؤول المراقبة الرئيسي</td>
+            <td>يوسف نادر، توماس ماجد</td>
+           </tr>
+           <tr>
+            <td>مراقبين مساعدين</td>
+            <td>يؤنا ملاك، ماريان عهدي<br>
+              ميرنا مجدي، مينا وهيب<br>
+              اندرو هاني، كريستين كمال<br>
+              جومانا عماد</td>
+           </tr>
+          </tbody>
+         </table>
+        </div>
+       </div>
+      </div><!-- Movement and Organization -->
+      <div class="accordion-item">
+       <div class="accordion-header" onclick="toggleAccordion(this)"><span>🚪 النظام والحركة</span> <span class="accordion-toggle">▼</span>
+       </div>
+       <div class="accordion-content">
+        <h4 style="color: #d4af37; margin: 1rem 0 0.75rem 0; font-weight: 600;">مسؤولو حركة الدارسين:</h4>
+        <div class="grid-2">
+         <div class="info-card">
+          <div class="info-card-title">
+           ابرام عاطف
+          </div>
+          <div class="info-card-text">
+           مسؤول الحركة الأول
+          </div>
+         </div>
+         <div class="info-card">
+          <div class="info-card-title">
+           مينا وهيب
+          </div>
+          <div class="info-card-text">
+           مساعد أول
+          </div>
+         </div>
+         <div class="info-card">
+          <div class="info-card-title">
+           ميرنا مجدي
+          </div>
+          <div class="info-card-text">
+           مساعد ثاني
+          </div>
+         </div>
+         <div class="info-card">
+          <div class="info-card-title">
+           يوسف نادر
+          </div>
+          <div class="info-card-text">
+           مساعد ثالث
+          </div>
+         </div>
+        </div>
+        <h4 style="color: #d4af37; margin: 2rem 0 0.75rem 0; font-weight: 600;">الدور الرئيسي:</h4>
+        <ul class="bullet-list">
+         <li>تنظيم حركة الدارسين من التحريري إلى الألحان</li>
+         <li>الحفاظ على النظام والالتزام بالجداول</li>
+         <li>توزيع الدارسين على اللجان</li>
+        </ul>
+       </div>
+      </div><!-- Timeline Summary -->
+      <h3 style="color: #d4af37; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">⏰ ملخص الجدول الزمني</h3>
+      <div class="grid-2">
+       <div class="stat-box">
+        <div style="color: #e8e8e8;">
+         ⏰ 4:30
+        </div>
+        <div style="font-size: 0.85rem; color: #b8b8b8; margin-top: 0.5rem;">
+         استلام كشف الغياب واستمارات السلوك
+        </div>
+       </div>
+       <div class="stat-box">
+        <div style="color: #e8e8e8;">
+         ⏰ 5:00
+        </div>
+        <div style="font-size: 0.85rem; color: #b8b8b8; margin-top: 0.5rem;">
+         استلام أوراق الامتحانات
+        </div>
+       </div>
+       <div class="stat-box">
+        <div style="color: #e8e8e8;">
+         ⏰ 5:30
+        </div>
+        <div style="font-size: 0.85rem; color: #b8b8b8; margin-top: 0.5rem;">
+         استلام الشفوي + تسليم فايلات التصحيح
+        </div>
+       </div>
+       <div class="stat-box">
+        <div style="color: #e8e8e8;">
+         ⏰ 6:00
+        </div>
+        <div style="font-size: 0.85rem; color: #b8b8b8; margin-top: 0.5rem;">
+         استلام أوراق التصحيح
+        </div>
+       </div>
+      </div>
+     </div>
+    </section><!-- GRADES Section -->
+    <section id="grades" class="content-section">
+     <div class="section-card">
+      <div class="section-title">
+       <div class="section-icon"></div> الدرجات والتقديرات
+      </div>
+      <p style="color: #e8e8e8; margin-bottom: 2rem;">نظام التقديرات الشامل لجميع المواد الدراسية مع حدود الدرجات الدقيقة</p><!-- Ceramonies -->
+      <div class="accordion-item">
+       <div class="accordion-header" onclick="toggleAccordion(this)"><span>✝️ الطقوس الكنسية (من 25 درجة)</span> <span class="accordion-toggle">▼</span>
+       </div>
+       <div class="accordion-content">
+        <div class="table-wrapper">
+         <table>
+          <thead>
+           <tr>
+            <th style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(212, 175, 55, 0.2));">التقدير</th>
+            <th style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(212, 175, 55, 0.2));">الحد الأدنى</th>
+            <th style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(212, 175, 55, 0.2));">الحد الأقصى</th>
+            <th style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(212, 175, 55, 0.2));">النسبة المئوية</th>
+           </tr>
+          </thead>
+          <tbody>
+           <tr style="background: rgba(76, 175, 80, 0.1);">
+            <td><span style="color: #76c776; font-weight: 700;">⭐ ممتاز</span></td>
+            <td style="color: #76c776; font-weight: 600;">22</td>
+            <td style="color: #76c776; font-weight: 600;">25</td>
+            <td style="color: #76c776; font-weight: 600;">88% - 100%</td>
+           </tr>
+           <tr style="background: rgba(33, 150, 243, 0.1);">
+            <td><span style="color: #42a5f5; font-weight: 700;">👍 جيد جدًا</span></td>
+            <td style="color: #42a5f5; font-weight: 600;">19</td>
+            <td style="color: #42a5f5; font-weight: 600;">21</td>
+            <td style="color: #42a5f5; font-weight: 600;">76% - 84%</td>
+           </tr>
+           <tr style="background: rgba(255, 193, 7, 0.1);">
+            <td><span style="color: #fbc02d; font-weight: 700;">✓ جيد</span></td>
+            <td style="color: #fbc02d; font-weight: 600;">17</td>
+            <td style="color: #fbc02d; font-weight: 600;">18</td>
+            <td style="color: #fbc02d; font-weight: 600;">68% - 72%</td>
+           </tr>
+           <tr style="background: rgba(255, 152, 0, 0.1);">
+            <td><span style="color: #ffb74d; font-weight: 700;">◐ مقبول</span></td>
+            <td style="color: #ffb74d; font-weight: 600;">13</td>
+            <td style="color: #ffb74d; font-weight: 600;">16</td>
+            <td style="color: #ffb74d; font-weight: 600;">52% - 64%</td>
+           </tr>
+           <tr style="background: rgba(244, 67, 54, 0.1);">
+            <td><span style="color: #ef5350; font-weight: 700;">✗ ضعيف</span></td>
+            <td style="color: #ef5350; font-weight: 600;">0</td>
+            <td style="color: #ef5350; font-weight: 600;">12</td>
+            <td style="color: #ef5350; font-weight: 600;">0% - 48%</td>
+           </tr>
+          </tbody>
+         </table>
+        </div>
+        <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(212, 175, 55, 0.08); border-right: 4px solid #76c776; border-radius: 6px;">
+         <p style="color: #e8e8e8; margin: 0;"><span style="color: #76c776; font-weight: 700;">💡 ملاحظة:</span> حد النجاح هو 13 درجة (52% على الأقل) لكل مادة</p>
+        </div>
+       </div>
+      </div><!-- Memorizations -->
+      <div class="accordion-item">
+       <div class="accordion-header" onclick="toggleAccordion(this)"><span>📖 المحفوظات والأجبية (من 20 درجة)</span> <span class="accordion-toggle">▼</span>
+       </div>
+       <div class="accordion-content">
+        <div class="table-wrapper">
+         <table>
+          <thead>
+           <tr>
+            <th style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(212, 175, 55, 0.2));">التقدير</th>
+            <th style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(212, 175, 55, 0.2));">الحد الأدنى</th>
+            <th style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(212, 175, 55, 0.2));">الحد الأقصى</th>
+            <th style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(212, 175, 55, 0.2));">النسبة المئوية</th>
+           </tr>
+          </thead>
+          <tbody>
+           <tr style="background: rgba(76, 175, 80, 0.1);">
+            <td><span style="color: #76c776; font-weight: 700;">⭐ ممتاز</span></td>
+            <td style="color: #76c776; font-weight: 600;">17</td>
+            <td style="color: #76c776; font-weight: 600;">20</td>
+            <td style="color: #76c776; font-weight: 600;">85% - 100%</td>
+           </tr>
+           <tr style="background: rgba(33, 150, 243, 0.1);">
+            <td><span style="color: #42a5f5; font-weight: 700;">👍 جيد جدًا</span></td>
+            <td style="color: #42a5f5; font-weight: 600;">15</td>
+            <td style="color: #42a5f5; font-weight: 600;">16</td>
+            <td style="color: #42a5f5; font-weight: 600;">75% - 80%</td>
+           </tr>
+           <tr style="background: rgba(255, 193, 7, 0.1);">
+            <td><span style="color: #fbc02d; font-weight: 700;">✓ جيد</span></td>
+            <td style="color: #fbc02d; font-weight: 600;">13</td>
+            <td style="color: #fbc02d; font-weight: 600;">14</td>
+            <td style="color: #fbc02d; font-weight: 600;">65% - 70%</td>
+           </tr>
+           <tr style="background: rgba(255, 152, 0, 0.1);">
+            <td><span style="color: #ffb74d; font-weight: 700;">◐ مقبول</span></td>
+            <td style="color: #ffb74d; font-weight: 600;">10</td>
+            <td style="color: #ffb74d; font-weight: 600;">12</td>
+            <td style="color: #ffb74d; font-weight: 600;">50% - 60%</td>
+           </tr>
+           <tr style="background: rgba(244, 67, 54, 0.1);">
+            <td><span style="color: #ef5350; font-weight: 700;">✗ ضعيف</span></td>
+            <td style="color: #ef5350; font-weight: 600;">0</td>
+            <td style="color: #ef5350; font-weight: 600;">9</td>
+            <td style="color: #ef5350; font-weight: 600;">0% - 45%</td>
+           </tr>
+          </tbody>
+         </table>
+        </div>
+        <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(212, 175, 55, 0.08); border-right: 4px solid #76c776; border-radius: 6px;">
+         <p style="color: #e8e8e8; margin: 0;"><span style="color: #76c776; font-weight: 700;">💡 ملاحظة:</span> حد النجاح هو 10 درجات (50% على الأقل)</p>
+        </div>
+       </div>
+      </div><!-- Coptic Language -->
+      <div class="accordion-item">
+       <div class="accordion-header" onclick="toggleAccordion(this)"><span>🔤 اللغة القبطية (من 25 درجة)</span> <span class="accordion-toggle">▼</span>
+       </div>
+       <div class="accordion-content">
+        <p style="color: #d4af37; font-weight: 600; margin-bottom: 1rem;">نفس حدود الطقوس الكنسية (من 25):</p>
+        <div class="table-wrapper">
+         <table>
+          <thead>
+           <tr>
+            <th style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(212, 175, 55, 0.2));">التقدير</th>
+            <th style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(212, 175, 55, 0.2));">الحد الأدنى</th>
+            <th style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(212, 175, 55, 0.2));">الحد الأقصى</th>
+            <th style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(212, 175, 55, 0.2));">النسبة المئوية</th>
+           </tr>
+          </thead>
+          <tbody>
+           <tr style="background: rgba(76, 175, 80, 0.1);">
+            <td><span style="color: #76c776; font-weight: 700;">⭐ ممتاز</span></td>
+            <td style="color: #76c776; font-weight: 600;">22</td>
+            <td style="color: #76c776; font-weight: 600;">25</td>
+            <td style="color: #76c776; font-weight: 600;">88% - 100%</td>
+           </tr>
+           <tr style="background: rgba(33, 150, 243, 0.1);">
+            <td><span style="color: #42a5f5; font-weight: 700;">👍 جيد جدًا</span></td>
+            <td style="color: #42a5f5; font-weight: 600;">19</td>
+            <td style="color: #42a5f5; font-weight: 600;">21</td>
+            <td style="color: #42a5f5; font-weight: 600;">76% - 84%</td>
+           </tr>
+           <tr style="background: rgba(255, 193, 7, 0.1);">
+            <td><span style="color: #fbc02d; font-weight: 700;">✓ جيد</span></td>
+            <td style="color: #fbc02d; font-weight: 600;">17</td>
+            <td style="color: #fbc02d; font-weight: 600;">18</td>
+            <td style="color: #fbc02d; font-weight: 600;">68% - 72%</td>
+           </tr>
+           <tr style="background: rgba(255, 152, 0, 0.1);">
+            <td><span style="color: #ffb74d; font-weight: 700;">◐ مقبول</span></td>
+            <td style="color: #ffb74d; font-weight: 600;">13</td>
+            <td style="color: #ffb74d; font-weight: 600;">16</td>
+            <td style="color: #ffb74d; font-weight: 600;">52% - 64%</td>
+           </tr>
+           <tr style="background: rgba(244, 67, 54, 0.1);">
+            <td><span style="color: #ef5350; font-weight: 700;">✗ ضعيف</span></td>
+            <td style="color: #ef5350; font-weight: 600;">0</td>
+            <td style="color: #ef5350; font-weight: 600;">12</td>
+            <td style="color: #ef5350; font-weight: 600;">0% - 48%</td>
+           </tr>
+          </tbody>
+         </table>
+        </div>
+        <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(212, 175, 55, 0.08); border-right: 4px solid #76c776; border-radius: 6px;">
+         <p style="color: #e8e8e8; margin: 0;"><span style="color: #76c776; font-weight: 700;">💡 ملاحظة:</span> حد النجاح هو 13 درجة (52% على الأقل)</p>
+        </div>
+       </div>
+      </div><!-- Vocals -->
+      <div class="accordion-item">
+       <div class="accordion-header" onclick="toggleAccordion(this)"><span>🎵 الألحان والتسبحة (من 30 درجة)</span> <span class="accordion-toggle">▼</span>
+       </div>
+       <div class="accordion-content">
+        <div class="table-wrapper">
+         <table>
+          <thead>
+           <tr>
+            <th style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(212, 175, 55, 0.2));">التقدير</th>
+            <th style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(212, 175, 55, 0.2));">الحد الأدنى</th>
+            <th style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(212, 175, 55, 0.2));">الحد الأقصى</th>
+            <th style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(212, 175, 55, 0.2));">النسبة المئوية</th>
+           </tr>
+          </thead>
+          <tbody>
+           <tr style="background: rgba(76, 175, 80, 0.1);">
+            <td><span style="color: #76c776; font-weight: 700;">⭐ ممتاز</span></td>
+            <td style="color: #76c776; font-weight: 600;">26</td>
+            <td style="color: #76c776; font-weight: 600;">30</td>
+            <td style="color: #76c776; font-weight: 600;">87% - 100%</td>
+           </tr>
+           <tr style="background: rgba(33, 150, 243, 0.1);">
+            <td><span style="color: #42a5f5; font-weight: 700;">👍 جيد جدًا</span></td>
+            <td style="color: #42a5f5; font-weight: 600;">23</td>
+            <td style="color: #42a5f5; font-weight: 600;">25</td>
+            <td style="color: #42a5f5; font-weight: 600;">77% - 83%</td>
+           </tr>
+           <tr style="background: rgba(255, 193, 7, 0.1);">
+            <td><span style="color: #fbc02d; font-weight: 700;">✓ جيد</span></td>
+            <td style="color: #fbc02d; font-weight: 600;">20</td>
+            <td style="color: #fbc02d; font-weight: 600;">22</td>
+            <td style="color: #fbc02d; font-weight: 600;">67% - 73%</td>
+           </tr>
+           <tr style="background: rgba(255, 152, 0, 0.1);">
+            <td><span style="color: #ffb74d; font-weight: 700;">◐ مقبول</span></td>
+            <td style="color: #ffb74d; font-weight: 600;">15</td>
+            <td style="color: #ffb74d; font-weight: 600;">19</td>
+            <td style="color: #ffb74d; font-weight: 600;">50% - 63%</td>
+           </tr>
+           <tr style="background: rgba(244, 67, 54, 0.1);">
+            <td><span style="color: #ef5350; font-weight: 700;">✗ ضعيف</span></td>
+            <td style="color: #ef5350; font-weight: 600;">0</td>
+            <td style="color: #ef5350; font-weight: 600;">14</td>
+            <td style="color: #ef5350; font-weight: 600;">0% - 47%</td>
+           </tr>
+          </tbody>
+         </table>
+        </div>
+        <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(212, 175, 55, 0.08); border-right: 4px solid #76c776; border-radius: 6px;">
+         <p style="color: #e8e8e8; margin: 0;"><span style="color: #76c776; font-weight: 700;">💡 ملاحظة:</span> حد النجاح هو 15 درجة (50% على الأقل)</p>
+        </div>
+       </div>
+      </div><!-- Summary -->
+      <div class="section-card" style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(212, 175, 55, 0.08)); margin-top: 2rem;">
+       <div class="section-title">
+        <div class="section-icon"></div> ملخص حدود النجاح
+       </div>
+       <div class="grid-2">
+        <div class="info-card">
+         <div class="info-card-title">
+          ✝️ الطقوس الكنسية
+         </div>
+         <div style="margin-top: 1rem;">
+          <div style="color: #d4af37; font-weight: 600; font-size: 1.2rem;">
+           13 من 25
+          </div>
+          <div style="color: #b8b8b8; font-size: 0.85rem; margin-top: 0.5rem;">
+           52% على الأقل
+          </div>
+         </div>
+        </div>
+        <div class="info-card">
+         <div class="info-card-title">
+          📖 المحفوظات والأجبية
+         </div>
+         <div style="margin-top: 1rem;">
+          <div style="color: #d4af37; font-weight: 600; font-size: 1.2rem;">
+           10 من 20
+          </div>
+          <div style="color: #b8b8b8; font-size: 0.85rem; margin-top: 0.5rem;">
+           50% على الأقل
+          </div>
+         </div>
+        </div>
+        <div class="info-card">
+         <div class="info-card-title">
+          🔤 اللغة القبطية
+         </div>
+         <div style="margin-top: 1rem;">
+          <div style="color: #d4af37; font-weight: 600; font-size: 1.2rem;">
+           13 من 25
+          </div>
+          <div style="color: #b8b8b8; font-size: 0.85rem; margin-top: 0.5rem;">
+           52% على الأقل
+          </div>
+         </div>
+        </div>
+        <div class="info-card">
+         <div class="info-card-title">
+          🎵 الألحان والتسبحة
+         </div>
+         <div style="margin-top: 1rem;">
+          <div style="color: #d4af37; font-weight: 600; font-size: 1.2rem;">
+           15 من 30
+          </div>
+          <div style="color: #b8b8b8; font-size: 0.85rem; margin-top: 0.5rem;">
+           50% على الأقل
+          </div>
+         </div>
+        </div>
+       </div>
+       <h3 style="color: #d4af37; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">📌 تعليمات هامة:</h3>
+       <ul class="bullet-list">
+        <li>النجاح يتطلب <span class="highlight">60% من المجموع النهائي</span> (60 من 100)</li>
+        <li>عدم الرسوب في <span class="highlight">أكثر من مادتين</span></li>
+        <li>التقديرات موحدة في جميع المراحل</li>
+        <li>يتم استخدام النسب الصحيحة دون تقريب قبل التحديد النهائي</li>
+       </ul>
+      </div>
+     </div>
+    </section>
+    <footer class="footer">
+     <div class="footer-title">
+      مركز الحبيب للألحان والدراسات القبطية
+     </div>
+     <p>نظام إداري وتعليمي شامل يخدم جميع أعمار الكنيسة</p>
+     <p style="margin-top: 1rem; font-size: 0.85rem;">© 2025 جميع الحقوق محفوظة | صُنع بكل عناية وتفاني</p>
+     <div class="footer-contact">
+      <p id="center-phone">للمزيد من المعلومات</p>
+      <p style="margin-top: 0.25rem; font-size: 0.85rem;">تابعنا على وسائل التواصل الاجتماعي</p>
+     </div>
+    </footer>
+   </main>
+  </div>
+  <script>
+        // Navigation and content switching
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+
+            // Update nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Accordion toggle
+        function toggleAccordion(header) {
+            header.classList.toggle('active');
+        }
+
+        // Element SDK Configuration
+        const defaultConfig = {
+            center_name: 'مركز الحبيب للألحان والدراسات القبطية',
+            center_motto: 'أفهم ... صلّي ... استمتع',
+            center_phone: '+20 1XX XXX XXXX',
+            center_email: 'info@example.com'
+        };
+
+        let config = { ...defaultConfig };
+
+        const element = {
+            defaultConfig,
+            onConfigChange: async (newConfig) => {
+                config = { ...config, ...newConfig };
+                document.getElementById('center-name').textContent = config.center_name || defaultConfig.center_name;
+                document.getElementById('center-motto').textContent = config.center_motto || defaultConfig.center_motto;
+                document.getElementById('center-phone').textContent = config.center_phone || defaultConfig.center_phone;
+            },
+            mapToCapabilities: (cfg) => ({
+                recolorables: [],
+                borderables: [],
+                fontEditable: undefined,
+                fontSizeable: undefined
+            }),
+            mapToEditPanelValues: (cfg) => new Map([
+                ['center_name', cfg.center_name || defaultConfig.center_name],
+                ['center_motto', cfg.center_motto || defaultConfig.center_motto],
+                ['center_phone', cfg.center_phone || defaultConfig.center_phone],
+                ['center_email', cfg.center_email || defaultConfig.center_email]
+            ])
+        };
+
+        if (window.elementSdk) {
+            window.elementSdk.init(element);
+        }
+
+        // Print function
+        function printPage() {
+            window.print();
+        }
+
+        // Download PDF (opens print dialog)
+        function downloadPDF() {
+            window.print();
+        }
+
+        // WhatsApp contact
+        function openWhatsApp() {
+            const message = encodeURIComponent('السلام عليكم، أرغب بمعلومات عن مركز الحبيب للألحان');
+            window.open(`https://wa.me/?text=${message}`, '_blank');
+        }
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9dd2b5e4f3b5e185',t:'MTc3MzY1MzEyNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
